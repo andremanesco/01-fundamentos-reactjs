@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-key */
 import { Header } from './components/Header'
 import { Post } from './components/Post'
 import { Sidebar } from './components/Sidebar'
@@ -12,8 +13,28 @@ const posts = [
       name: 'André Manesco',
       role: 'Developer'
     },
-    content: [],
+    content: [
+      {type: 'paragraph', content: 'Fala galeraa 🛺'},
+      {type: 'paragraph', content: 'Acabei de subir mais um projeto no meu portifa. É um projeto que fiz no NLW Return, evento da Rocketseat. O nome do projeto é DoctorCare 🚀'},
+      {type: 'link', content: 'jane.design/doctorcare'},
+    ],
+    publishedAt: new Date('2024-08-01 20:00:00')
   },
+  {
+    id: 2,
+    author: {
+      avatarUrl: 'https://github.com/maykbrito.png',
+      name: 'Mayk Brito',
+      role: 'Educator'
+    },
+    content: [
+      {type: 'paragraph', content: 'Fala galeraa 👋'},
+      {type: 'paragraph', content: 'Acabei de subir mais um projeto no meu portifa. É um projeto que fiz no NLW Return, evento da Rocketseat. O nome do projeto é DoctorCare 🚀'},
+      {type: 'link', content: 'jane.design/doctorcare'},
+    ],
+    publishedAt: new Date('2024-08-02 20:00:00')
+  }
+
 ]
 
 import styles from './App.module.css'
@@ -27,15 +48,15 @@ export function App() {
         <Sidebar />
 
         <main>
-          <Post
-            author="Andre"
-            content="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Id corporis, illo dicta nisi quam minima dolore perspiciatis! Corporis, perferendis dolorum, quae ab neque cum culpa praesentium explicabo at officia quidem."
-          />
-
-          <Post
-            author="joão"
-            content="ashdaioshd"
-          />
+          {posts.map(post => {
+            return (
+              <Post 
+                author={post.author}
+                content={post.content}
+                publishedAt={post.publishedAt}
+              />
+            )
+          })}
         </main>
       </div>
     </div>
