@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-key */
 /* eslint-disable react/prop-types */
 
-import {format, formatDistanceToNow} from 'date-fns'
+import { format, formatDistanceToNow } from 'date-fns'
 import ptBR from 'date-fns/locale/pt-BR'
 
 import { Avatar } from './Avatar'
@@ -10,7 +10,7 @@ import styles from './Post.module.css'
 import { useState } from 'react'
 
 
-export function Post({author, publishedAt, content}) {
+export function Post({ author, publishedAt, content }) {
   const [comments, setComments] = useState([
     'Post muito bacana hein?!'
   ])
@@ -28,7 +28,7 @@ export function Post({author, publishedAt, content}) {
 
   function handleCreateNewComment() {
     event.preventDefault()
-    
+
     const newCommentText = event.target.comment.value
 
     setComments([...comments, newCommentText])
@@ -39,8 +39,12 @@ export function Post({author, publishedAt, content}) {
     setnewCommentText(event.target.value)
   }
 
-  function deleteComment(comment) {
-    console.log(`Deletar comentário ${comment}`)
+  function deleteComment(commentToDelete) {
+    const commentsWithoutDeletedOne = comments.filter(comment => {
+      return comment != commentToDelete
+    })
+
+    setComments(commentsWithoutDeletedOne)
   }
 
   return (
@@ -87,10 +91,10 @@ export function Post({author, publishedAt, content}) {
       <div className={styles.commentList}>
         {comments.map(comment => {
           return (
-            <Comment 
-              key={comment} 
-              content={comment} 
-              onDeleteComment={deleteComment} 
+            <Comment
+              key={comment}
+              content={comment}
+              onDeleteComment={deleteComment}
             />)
         })}
       </div>
